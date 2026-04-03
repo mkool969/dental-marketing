@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48; }
+    .glass-nav { background: rgba(15, 20, 25, 0.6); backdrop-filter: blur(12px); }
+    .no-line-rule { border: none !important; }
+    .tonal-shift { background-color: #171c21; }
+    .authority-stat-shadow { box-shadow: 0 48px 100px -20px rgba(0, 0, 0, 0.3); }
+    .text-shadow-hero { text-shadow: 0 10px 30px rgba(29, 161, 242, 0.2); }
+    
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+    
+    /* Accordion animations */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+    }
+    .accordion-content.open {
+      max-height: 500px;
+    }
+    
+    /* Icon rotation */
+    .accordion-icon {
+      transition: transform 0.3s ease-in-out;
+    }
+    .accordion-icon.open {
+      transform: rotate(180deg);
+    }
+  </style>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary": "#003352",
+            "primary-container": "#1da1f2",
+            "error": "#ffb4ab",
+            "primary": "#95ccff",
+            "background": "#0f1419",
+            "tertiary-container": "#de8500",
+            "on-primary-fixed-variant": "#004a75",
+            "secondary": "#fff3d2",
+            "on-surface-variant": "#bec7d3",
+            "on-primary-fixed": "#001d32",
+            "surface-variant": "#30353b",
+            "on-background": "#dee3ea",
+            "error-container": "#93000a",
+            "on-tertiary-fixed": "#2c1600",
+            "on-secondary": "#3a3000",
+            "surface-container-lowest": "#0a0f14",
+            "secondary-container": "#fdd400",
+            "on-error": "#690005",
+            "surface-tint": "#95ccff",
+            "primary-fixed": "#cde5ff",
+            "outline-variant": "#3f4851",
+            "on-secondary-fixed-variant": "#544600",
+            "on-tertiary-container": "#4c2a00",
+            "surface-container-low": "#171c21",
+            "primary-fixed-dim": "#95ccff",
+            "surface-dim": "#0f1419",
+            "inverse-surface": "#dee3ea",
+            "outline": "#89929c",
+            "surface-container-high": "#252a30",
+            "on-primary-container": "#003554",
+            "secondary-fixed-dim": "#e9c400",
+            "surface-container": "#1b2025",
+            "on-tertiary": "#492900",
+            "on-error-container": "#ffdad6",
+            "on-secondary-fixed": "#221b00",
+            "tertiary-fixed": "#ffdcbd",
+            "inverse-primary": "#006399",
+            "surface": "#0f1419",
+            "surface-bright": "#353a3f",
+            "tertiary": "#ffb86e",
+            "tertiary-fixed-dim": "#ffb86e",
+            "surface-container-highest": "#30353b",
+            "on-secondary-container": "#6f5c00",
+            "secondary-fixed": "#ffe170",
+            "on-tertiary-fixed-variant": "#693c00",
+            "on-surface": "#dee3ea",
+            "inverse-on-surface": "#2c3136"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          }
+        },
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0F1419]/60 backdrop-blur-md flex justify-between items-center px-4 md:px-8 py-4 max-w-full no-line-rule border-b border-outline-variant/10">
+  <div class="text-2xl font-black text-[#FFD600] font-['Inter'] tracking-tight cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Benja Dent</div>
+  
+  <!-- Menu Desktop -->
+  <div class="hidden md:flex gap-8 items-center font-['Inter'] font-medium tracking-tight">
+    <a class="text-[#FFD600] font-bold hover:text-[#1DA1F2] transition-colors duration-300 cursor-pointer" href="#problem">Problema</a>
+    <a class="text-slate-300 hover:text-[#1DA1F2] transition-colors duration-300 cursor-pointer" href="#solution">Solución</a>
+    <a class="text-slate-300 hover:text-[#1DA1F2] transition-colors duration-300 cursor-pointer" href="#results">Resultados</a>
+    <a class="text-slate-300 hover:text-[#1DA1F2] transition-colors duration-300 cursor-pointer" href="#testimonials">Testimonios</a>
+    <a class="text-slate-300 hover:text-[#1DA1F2] transition-colors duration-300 cursor-pointer" href="#price">Precio</a>
+    <a class="text-slate-300 hover:text-[#1DA1F2] transition-colors duration-300 cursor-pointer" href="#faq">FAQ</a>
+  </div>
+  
+  <button class="bg-[#1DA1F2] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#1772ab] transition-all active:scale-95" onclick="document.getElementById('cta-modal').style.display='flex'">Agendar Llamada</button>
+</nav>
+
+<main>
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 text-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#1DA1F2]/10 to-transparent pointer-events-none"></div>
+    <div class="max-w-6xl mx-auto z-10">
+      <h1 class="text-[40px] md:text-[80px] leading-[0.95] font-black tracking-tighter text-on-background mb-8 text-shadow-hero">
+        Deja de pagar mensualidades a agencias y lleva pacientes <span class="text-secondary-container">directo a tu clínica</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-on-surface-variant max-w-3xl mx-auto mb-12 font-medium leading-relaxed">
+        Aprende el método usado por +100 odontólogos para generar independencia en marketing digital sin experiencia previa.
+      </p>
+      <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+        <button class="bg-gradient-to-br from-primary to-primary-container text-on-primary-container px-10 py-5 rounded-lg text-lg font-extrabold shadow-2xl hover:brightness-110 transition-all active:scale-95" onclick="document.getElementById('cta-modal').style.display='flex'">
+          Agendar Llamada Gratuita
+        </button>
+        <div class="flex -space-x-4">
+          <img class="w-12 h-12 rounded-full border-2 border-background object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC15uBZO23qfbqyEO79AtiFU6pwG4lncS56QTWaBK-aUBcl4UTJJuU7TMD-DPZhBCo5is0DVCmrL1r0ThTLdkvV9e6Rmh-B9bRyZ0lH2hNatFNtXuyiTZr4rxW7sbXxuDZwtz4L2HxEKe4CLC_fo8hrVezhtoHFSjvwBoVvqNRb3JO6TRI7JFCMPYgf_zOLEArMTYgJXsGuXdQvi7UVaUemCGn4ndZme69hE208lmJXLjeKACzTLuD-ERlUJkYWEp8z00n0sJQLaxw" alt="doctor"/>
+          <img class="w-12 h-12 rounded-full border-2 border-background object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhZ84oRq3GQLNBU35uHBMO1G4jHh1zSrWtLX1uvgTUYWUD1hBvYKAXdmebPaZXwVPCx4l3geuXr8SSr8rtbau4h6RIePhrT5NMeuy4FvTFscTntM2O-1U0EGBTp_fvvIlpPQOrVpcZ2i8XGTpB9hRQfs63t18GcoBXq1NQb1_3wnmZ6RuFou-cB4E2CtVeOr_XVMjpwno7fhg-mOVt9OmC3T96D1Mx0dmah6Dyntk5NcifVv1JrIvNcoleINOWnSmQBaDC0nwvUn4" alt="doctor"/>
+          <img class="w-12 h-12 rounded-full border-2 border-background object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYGBrF1fsljKI50OLNhjIuO6DGLlUVMDMmMLOMaWnQQPNSDIcT928FVjSfcxP9wRipbjFCpcAZR1BYx8mB4EJP8pwy0atYeTqW2mF33CTTVGmRZ2V0BhkRZR3373SzrigXtnT1efnvUAvsz3Pt5oekvmVod5sRgMGGJ5Z7EcchlA_gpAgNUUY4DXMXXUZf7FvjUhrLoeb3axR0qxgLUQ56SWRZe39O-VUpMgVXZ0320ZTyKFMVCF9Fs8JBDfOh9d26NQRgIRTkY8k" alt="doctor"/>
+          <div class="w-12 h-12 rounded-full border-2 border-background bg-surface-container-high flex items-center justify-center text-xs font-bold text-secondary-container">+100</div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-20 w-full max-w-5xl rounded-xl overflow-hidden shadow-2xl border border-outline-variant/20">
+      <img class="w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtcsWABiO94QVWUxwqxb007g-2vGxQBxRNOI_phGuGML7TcpFBEuLIkbLkSms1PRT-FE6MjocOFMJkY-kBxYgAwSs88jsx-34L_rTD-drpt7cJx-KSvRJ5pJ58NvyiE2m1lAq2gGjOrpHYNqa0r_n_2gIqJ-VD1gz7uG3ymG-5lf0YEr_KeuXZC7SCT7tb2nCIzXgfXnqkuJRkzUBsI7KZiEoVr0eXs_APjqKP8bU6GLN4O7dW3IZEJTOU6uqg9cUYUU-438H8lPE" alt="dental office"/>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="py-24 px-6 bg-surface-container-low" id="problem">
+    <div class="max-w-7xl mx-auto">
+      <label class="text-xs font-black uppercase tracking-[0.2em] text-[#FFD600] mb-4 block">La Realidad Actual</label>
+      <h2 class="text-4xl md:text-5xl font-black text-[#FFD600] mb-16 tracking-tight max-w-4xl">¿Por qué los dueños de clínicas siguen pagando mensualidades sin ver resultados?</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-surface-container-high p-8 rounded-lg border-l-4 border-error/50 hover:border-error transition-all hover:shadow-lg">
+          <span class="material-symbols-outlined text-error mb-6 text-4xl">account_balance_wallet</span>
+          <h3 class="text-2xl font-bold mb-4 text-on-background">Dependencia</h3>
+          <p class="text-on-surface-variant leading-relaxed">Pagas $500-$2000 USD al mes a agencias que no entienden el día a día de un consultorio dental.</p>
+        </div>
+        <div class="bg-surface-container-high p-8 rounded-lg border-l-4 border-error/50 hover:border-error transition-all hover:shadow-lg">
+          <span class="material-symbols-outlined text-error mb-6 text-4xl">query_stats</span>
+          <h3 class="text-2xl font-bold mb-4 text-on-background">Incertidumbre</h3>
+          <p class="text-on-surface-variant leading-relaxed">Los resultados son impredecibles y lentos. No sabes qué están haciendo realmente con tu dinero.</p>
+        </div>
+        <div class="bg-surface-container-high p-8 rounded-lg border-l-4 border-error/50 hover:border-error transition-all hover:shadow-lg">
+          <span class="material-symbols-outlined text-error mb-6 text-4xl">settings_remote</span>
+          <h3 class="text-2xl font-bold mb-4 text-on-background">Pérdida de control</h3>
+          <p class="text-on-surface-variant leading-relaxed">No puedes ajustar nada rápido. Dependes de que alguien más te conteste un mail para cambiar un precio o promo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="py-24 px-6" id="solution">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-black text-primary-container mb-20 tracking-tight text-center">¿Cómo funciona el método? 3 pasos simples</h2>
+      <div class="space-y-12">
+        <div class="flex flex-col md:flex-row items-center gap-12 bg-surface-container-low p-10 rounded-xl hover:shadow-lg transition-all">
+          <div class="text-[80px] font-black text-secondary-container opacity-50 md:w-1/4">01</div>
+          <div class="md:w-3/4">
+            <h3 class="text-3xl font-bold mb-4 text-on-background">Paso 1: Domina los Fundamentos</h3>
+            <p class="text-lg text-on-surface-variant leading-relaxed">Aprende en 5 horas cómo piensan las plataformas digitales. No necesitas ser técnico, solo entender la psicología detrás de un paciente buscando clínica.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row-reverse items-center gap-12 bg-surface-container-low p-10 rounded-xl hover:shadow-lg transition-all">
+          <div class="text-[80px] font-black text-secondary-container opacity-50 md:w-1/4 text-right">02</div>
+          <div class="md:w-3/4">
+            <h3 class="text-3xl font-bold mb-4 text-on-background">Paso 2: Crea y Lanza Campañas</h3>
+            <p class="text-lg text-on-surface-variant leading-relaxed">Usa nuestras plantillas probadas diseñadas específicamente para servicios dentales. Copywriting y diseños que detienen el scroll y generan citas.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row items-center gap-12 bg-surface-container-low p-10 rounded-xl hover:shadow-lg transition-all">
+          <div class="text-[80px] font-black text-secondary-container opacity-50 md:w-1/4">03</div>
+          <div class="md:w-3/4">
+            <h3 class="text-3xl font-bold mb-4 text-on-background">Paso 3: Escala a Velocidad</h3>
+            <p class="text-lg text-on-surface-variant leading-relaxed">Optimiza lo que funciona y multiplica tu ROI. Aprende a leer tus propios números para saber exactamente dónde poner cada dólar de publicidad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="py-24 px-6 bg-surface-container-lowest" id="results">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-black text-primary-container mb-16 tracking-tight text-center">¿Qué logran nuestros alumnos?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-surface-container-high p-8 rounded-lg flex flex-col justify-between hover:shadow-lg hover:scale-105 transition-all">
+          <div>
+            <div class="text-primary-container font-black text-3xl mb-2">+300% facturación</div>
+            <div class="text-secondary-container font-bold">Filemón | 2 meses</div>
+          </div>
+          <div class="mt-4 text-on-surface-variant italic">"El cambio fue radical desde el primer mes."</div>
+        </div>
+        <div class="bg-surface-container-high p-8 rounded-lg flex flex-col justify-between hover:shadow-lg hover:scale-105 transition-all">
+          <div>
+            <div class="text-primary-container font-black text-3xl mb-2">+70% captación</div>
+            <div class="text-secondary-container font-bold">Gonzalo | 1 mes</div>
+          </div>
+          <div class="mt-4 text-on-surface-variant italic">"Agenda llena con pacientes de calidad."</div>
+        </div>
+        <div class="bg-surface-container-high p-8 rounded-lg flex flex-col justify-between hover:shadow-lg hover:scale-105 transition-all">
+          <div>
+            <div class="text-primary-container font-black text-3xl mb-2">+20,000 USD</div>
+            <div class="text-secondary-container font-bold">Carlos | &lt; 30 días</div>
+          </div>
+          <div class="mt-4 text-on-surface-variant italic">"Recuperé la inversión en la primera semana."</div>
+        </div>
+        <div class="bg-surface-container-high p-8 rounded-lg hover:shadow-lg hover:scale-105 transition-all">
+          <div class="text-secondary-container font-black text-3xl mb-2">100% Alumnos</div>
+          <div class="text-on-background font-bold">Corriendo sus propios anuncios hoy.</div>
+        </div>
+        <div class="bg-surface-container-high p-8 rounded-lg hover:shadow-lg hover:scale-105 transition-all">
+          <div class="text-secondary-container font-black text-3xl mb-2">$0 Pagados</div>
+          <div class="text-on-background font-bold">En mensualidades a agencias desde ahora.</div>
+        </div>
+        <div class="bg-surface-container-high p-8 rounded-lg hover:shadow-lg hover:scale-105 transition-all">
+          <div class="text-secondary-container font-black text-3xl mb-2">8 Clínicas</div>
+          <div class="text-on-background font-bold">Escaladas a +5,000 USD adicionales/mes.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-24 px-6" id="testimonials">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-black text-primary-container mb-20 tracking-tight text-center">Esto es lo que dicen los odontólogos</h2>
+      <div class="grid gap-12">
+        <div class="bg-surface-container-low p-10 rounded-xl border-l-8 border-secondary-container hover:shadow-lg transition-all">
+          <p class="text-2xl md:text-3xl font-medium italic text-secondary-container mb-6 leading-tight">"Triplicué la facturación en 2 meses sin tener que contratar a nadie externo. Ahora sé exactamente qué funciona en mi clínica."</p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center font-bold text-on-primary">F</div>
+            <div>
+              <div class="font-bold text-on-background">Dr. Filemón R.</div>
+              <div class="text-on-surface-variant text-sm">Clínica Dental Avanzada</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-surface-container-low p-10 rounded-xl border-l-8 border-secondary-container hover:shadow-lg transition-all">
+          <p class="text-2xl md:text-3xl font-medium italic text-secondary-container mb-6 leading-tight">"Los pacientes me escriben directo al WhatsApp preguntando por presupuestos de implantes. La calidad de leads es impresionante."</p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center font-bold text-on-primary">C</div>
+            <div>
+              <div class="font-bold text-on-background">Dr. Carlos M.</div>
+              <div class="text-on-surface-variant text-sm">Especialista en Rehabilitación</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-surface-container-low p-10 rounded-xl border-l-8 border-secondary-container hover:shadow-lg transition-all">
+          <p class="text-2xl md:text-3xl font-medium italic text-secondary-container mb-6 leading-tight">"Lanzé mi primer campaña en semana 2 siguiendo el paso a paso. Es increíblemente sencillo cuando te lo explican bien."</p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center font-bold text-on-primary">G</div>
+            <div>
+              <div class="font-bold text-on-background">Dr. Gonzalo S.</div>
+              <div class="text-on-surface-variant text-sm">Ortodoncista Independiente</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Course Content - ACCORDION FUNCIONAL -->
+  <section class="py-24 px-6 bg-surface-container-low">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-black text-[#FFD600] mb-16 tracking-tight text-center">¿Qué aprenderás exactamente?</h2>
+      <div class="space-y-4">
+        
+        <!-- Accordion Item 1 -->
+        <div class="accordion-item bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant/20">
+          <div class="accordion-header p-6 cursor-pointer hover:bg-surface-container-high/80 transition-colors flex justify-between items-center" onclick="toggleAccordion(this)">
+            <h4 class="text-xl font-bold text-on-background">Módulo 1: Fundamentos del Paciente Digital</h4>
+            <span class="material-symbols-outlined accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-content">
+            <div class="px-6 pb-6 text-on-surface-variant leading-relaxed">
+              <ul class="space-y-2">
+                <li>✓ Cómo piensa un paciente buscando clínica online</li>
+                <li>✓ Psicología de la decisión de compra en servicios dentales</li>
+                <li>✓ El rol de las redes sociales en el paciente moderno</li>
+                <li>✓ Cómo convertir curiosidad en citas agendadas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="accordion-item bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant/20">
+          <div class="accordion-header p-6 cursor-pointer hover:bg-surface-container-high/80 transition-colors flex justify-between items-center" onclick="toggleAccordion(this)">
+            <h4 class="text-xl font-bold text-on-background">Módulo 2: Configuración Pro de Facebook &amp; Instagram Ads</h4>
+            <span class="material-symbols-outlined accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-content">
+            <div class="px-6 pb-6 text-on-surface-variant leading-relaxed">
+              <ul class="space-y-2">
+                <li>✓ Cómo crear una cuenta publicitaria profesional</li>
+                <li>✓ Eventos de conversión y píxel de Facebook</li>
+                <li>✓ Públicos personalizados vs. de interés</li>
+                <li>✓ Presupuesto y pujas inteligentes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="accordion-item bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant/20">
+          <div class="accordion-header p-6 cursor-pointer hover:bg-surface-container-high/80 transition-colors flex justify-between items-center" onclick="toggleAccordion(this)">
+            <h4 class="text-xl font-bold text-on-background">Módulo 3: Estructura de Anuncios que Convierten</h4>
+            <span class="material-symbols-outlined accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-content">
+            <div class="px-6 pb-6 text-on-surface-variant leading-relaxed">
+              <ul class="space-y-2">
+                <li>✓ Copywriting que detiene el scroll</li>
+                <li>✓ Imágenes y vídeos que generan clics</li>
+                <li>✓ CTA (Call To Action) efectivos</li>
+                <li>✓ Estructura de landing pages de conversión</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 4 -->
+        <div class="accordion-item bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant/20">
+          <div class="accordion-header p-6 cursor-pointer hover:bg-surface-container-high/80 transition-colors flex justify-between items-center" onclick="toggleAccordion(this)">
+            <h4 class="text-xl font-bold text-on-background">Módulo 4: Segmentación Local Estratégica</h4>
+            <span class="material-symbols-outlined accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-content">
+            <div class="px-6 pb-6 text-on-surface-variant leading-relaxed">
+              <ul class="space-y-2">
+                <li>✓ Geolocalización inteligente por zona</li>
+                <li>✓ Segmentación por edad, renta, intereses</li>
+                <li>✓ Relanzamiento a pacientes perdidos</li>
+                <li>✓ Cómo crear públicos ganadores</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 5 -->
+        <div class="accordion-item bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant/20">
+          <div class="accordion-header p-6 cursor-pointer hover:bg-surface-container-high/80 transition-colors flex justify-between items-center" onclick="toggleAccordion(this)">
+            <h4 class="text-xl font-bold text-on-background">Módulo 5: Escalado y Optimización de ROI</h4>
+            <span class="material-symbols-outlined accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-content">
+            <div class="px-6 pb-6 text-on-surface-variant leading-relaxed">
+              <ul class="space-y-2">
+                <li>✓ Cómo leer tus métricas y KPIs</li>
+                <li>✓ Escalar campañas sin quemar presupuesto</li>
+                <li>✓ Testing y optimización continua</li>
+                <li>✓ De 1 paciente a 10+ al mes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Plans -->
+  <section class="py-24 px-6" id="price">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-black text-primary-container mb-16 tracking-tight">Acceso al curso</h2>
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        
+        <!-- Plan A -->
+        <div class="bg-surface-container-low p-10 rounded-xl border border-outline-variant/10 hover:shadow-lg transition-all">
+          <h3 class="text-2xl font-bold mb-6">Plan Estándar</h3>
+          <div class="text-5xl font-black mb-8 text-on-background">$297 <span class="text-xl font-normal text-on-surface-variant">USD</span></div>
+          <ul class="text-left space-y-4 mb-10 text-on-surface-variant">
+            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container" style="font-size:20px;">check_circle</span> 25+ videoclases HD</li>
+            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container" style="font-size:20px;">check_circle</span> Plantillas de anuncios</li>
+            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container" style="font-size:20px;">check_circle</span> Grupo privado de alumnos</li>
+            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container" style="font-size:20px;">check_circle</span> 30 días de garantía</li>
+          </ul>
+          <button class="w-full py-4 bg-primary-container text-on-primary-container font-black rounded-lg hover:brightness-110 transition-all active:scale-95" onclick="document.getElementById('cta-modal').style.display='flex'">PAGO ÚNICO</button>
+        </div>
+        
+        <!-- Plan B -->
+        <div class="bg-surface-container-high p-10 rounded-xl border-2 border-secondary-container relative hover:shadow-lg transition-all">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary-container text-on-secondary px-4 py-1 rounded-full text-xs font-black uppercase">Más popular</div>
+          <h3 class="text-2xl font-bold mb-6 mt-2">Plan Flexible</h3>
+          <div class="text-5xl font-black mb-2 text-on-background">$127 <span class="text-xl font-normal text-on-surface-variant">USD</span></div>
+          <div class="text-on-surface-variant mb-8 font-medium">3 PAGOS MENSUALES</div>
+          <ul class="text-left space-y-4 mb-10 text-on-surface-variant">
+            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary-container" style="font-size:20px;">check_circle</span> Todo lo del plan estándar</li>
+            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary-container" style="font-size:20px;">check_circle</span> Acceso inmediato</li>
+            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary-container" style="font-size:20px;">check_circle</span> Soporte prioritario</li>
+            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary-container" style="font-size:20px;">check_circle</span> 30 días de garantía</li>
+          </ul>
+          <button class="w-full py-4 bg-secondary-container text-on-secondary-container font-black rounded-lg hover:brightness-110 transition-all active:scale-95" onclick="document.getElementById('cta-modal').style.display='flex'">EMPEZAR AHORA</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ ACCORDION FUNCIONAL -->
+  <section class="py-24 px-6 bg-surface-container-low" id="faq">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-black text-[#FFD600] mb-16 tracking-tight text-center">Preguntas frecuentes</h2>
+      <div class="space-y-4">
+        
+        <!-- FAQ Item 1 -->
+        <div class="accordion-item border-b border-outline-variant/20">
+          <div class="accordion-header py-6 cursor-pointer flex justify-between items-center hover:text-primary-container transition-colors" onclick="toggleAccordion(this)">
+            <h4 class="text-lg font-bold text-on-background">¿Necesito experiencia previa en marketing?</h4>
+            <span class="material-symbols-outlined accordion-icon">add</span>
+          </div>
+          <div class="accordion-content">
+            <div class="pb-6 text-on-surface-variant leading-relaxed">
+              No necesitas nada de experiencia. El curso está diseñado desde cero para odontólogos sin conocimiento previo. Todo está explicado paso a paso, sin jerga técnica innecesaria.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="accordion-item border-b border-outline-variant/20">
+          <div class="accordion-header py-6 cursor-pointer flex justify-between items-center hover:text-primary-container transition-colors" onclick="toggleAccordion(this)">
+            <h4 class="text-lg font-bold text-on-background">¿Cuánto tiempo diario requiere el curso?</h4>
+            <span class="material-symbols-outlined accordion-icon">add</span>
+          </div>
+          <div class="accordion-content">
+            <div class="pb-6 text-on-surface-variant leading-relaxed">
+              Durante el curso: 5-7 horas por semana durante 4 semanas. Después, solo necesitas 2-3 horas semanales para gestionar tus anuncios. Es mucho menos que mantener una agencia.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="accordion-item border-b border-outline-variant/20">
+          <div class="accordion-header py-6 cursor-pointer flex justify-between items-center hover:text-primary-container transition-colors" onclick="toggleAccordion(this)">
+            <h4 class="text-lg font-bold text-on-background">¿Funciona en cualquier país?</h4>
+            <span class="material-symbols-outlined accordion-icon">add</span>
+          </div>
+          <div class="accordion-content">
+            <div class="pb-6 text-on-surface-variant leading-relaxed">
+              Sí, el método funciona en todos los países hispanohablantes: México, Colombia, Argentina, Chile, Perú, España, etc. Facebook e Instagram tienen alcance global.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="accordion-item border-b border-outline-variant/20">
+          <div class="accordion-header py-6 cursor-pointer flex justify-between items-center hover:text-primary-container transition-colors" onclick="toggleAccordion(this)">
+            <h4 class="text-lg font-bold text-on-background">¿Hay soporte personalizado?</h4>
+            <span class="material-symbols-outlined accordion-icon">add</span>
+          </div>
+          <div class="accordion-content">
+            <div class="pb-6 text-on-surface-variant leading-relaxed">
+              Sí, acceso a grupo privado con otros alumnos y soporte por email. Respondemos todas tus dudas dentro de 24 horas. En el plan flexible, tienes soporte prioritario.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="accordion-item border-b border-outline-variant/20">
+          <div class="accordion-header py-6 cursor-pointer flex justify-between items-center hover:text-primary-container transition-colors" onclick="toggleAccordion(this)">
+            <h4 class="text-lg font-bold text-on-background">¿Qué pasa si no me gusta el contenido?</h4>
+            <span class="material-symbols-outlined accordion-icon">add</span>
+          </div>
+          <div class="accordion-content">
+            <div class="pb-6 text-on-surface-variant leading-relaxed">
+              Tienes 30 días completos para revisar el curso. Si no te gusta o no ves valor, te devolvemos el 100% de tu dinero sin preguntas. Cero riesgo.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-32 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[#FFD600]/5 pointer-events-none"></div>
+    <div class="max-w-5xl mx-auto text-center z-10 relative">
+      <h2 class="text-4xl md:text-6xl font-black text-[#FFD600] mb-8 tracking-tighter">¿Listo para dejar de depender de agencias?</h2>
+      <p class="text-xl md:text-2xl text-on-surface-variant mb-12 max-w-2xl mx-auto leading-relaxed">
+        Agenda tu llamada de estrategia gratuita y descubre si este método es el adecuado para escalar tu clínica.
+      </p>
+      <button class="bg-[#1DA1F2] text-white px-12 py-6 rounded-lg text-2xl font-black shadow-2xl hover:scale-105 hover:brightness-110 active:scale-95 transition-all" onclick="document.getElementById('cta-modal').style.display='flex'">
+        Agendar Llamada Gratuita
+      </button>
+      <p class="mt-8 text-sm text-outline font-bold uppercase tracking-widest">Quedan 3 cupos disponibles para este mes</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-[#0F1419] w-full py-12 border-t border-outline-variant/10">
+  <div class="flex flex-col items-center gap-6 max-w-7xl mx-auto px-8">
+    <div class="text-xl font-bold text-[#FFD600] font-['Inter']">Benja Dent</div>
+    <div class="flex gap-8 font-['Inter'] text-sm uppercase tracking-widest flex-wrap justify-center">
+      <a class="text-slate-500 hover:text-white transition-colors opacity-80 hover:opacity-100" href="#">Política de Privacidad</a>
+      <a class="text-slate-500 hover:text-white transition-colors opacity-80 hover:opacity-100" href="#">Términos</a>
+      <a class="text-slate-500 hover:text-white transition-colors opacity-80 hover:opacity-100" href="#">Contacto</a>
+    </div>
+    <div class="text-slate-500 font-['Inter'] text-sm uppercase tracking-widest opacity-80">
+      © 2024 Independencia Dental. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>
+
+<!-- CTA Modal (Simple Contact Form) -->
+<div id="cta-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center px-4" style="display:none;" onclick="if(event.target.id=='cta-modal') document.getElementById('cta-modal').style.display='none'">
+  <div class="bg-surface-container-low p-10 rounded-xl max-w-md w-full shadow-2xl border border-outline-variant/20">
+    <h3 class="text-2xl font-bold text-[#FFD600] mb-6">Agenda tu Llamada Gratuita</h3>
+    <form onsubmit="handleFormSubmit(event)">
+      <div class="space-y-4">
+        <input type="text" placeholder="Tu nombre" class="w-full bg-surface-container-high border border-outline-variant/20 text-on-background px-4 py-3 rounded-lg focus:outline-none focus:border-primary-container" required/>
+        <input type="email" placeholder="Tu email" class="w-full bg-surface-container-high border border-outline-variant/20 text-on-background px-4 py-3 rounded-lg focus:outline-none focus:border-primary-container" required/>
+        <input type="tel" placeholder="Tu teléfono (WhatsApp)" class="w-full bg-surface-container-high border border-outline-variant/20 text-on-background px-4 py-3 rounded-lg focus:outline-none focus:border-primary-container" required/>
+        <select class="w-full bg-surface-container-high border border-outline-variant/20 text-on-background px-4 py-3 rounded-lg focus:outline-none focus:border-primary-container" required>
+          <option value="">¿Qué te interesa?</option>
+          <option value="course">Curso de ADS</option>
+          <option value="consulting">Asesorías 1:1</option>
+          <option value="both">Ambos</option>
+        </select>
+      </div>
+      <button type="submit" class="w-full bg-primary-container text-on-primary-container font-bold py-3 rounded-lg mt-6 hover:brightness-110 transition-all active:scale-95">
+        Agendar Ahora
+      </button>
+      <button type="button" onclick="document.getElementById('cta-modal').style.display='none'" class="w-full text-on-surface-variant text-sm mt-3 hover:text-on-background transition-colors">Cerrar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Accordion Toggle Function
+  function toggleAccordion(header) {
+    const item = header.parentElement;
+    const content = item.querySelector('.accordion-content');
+    const icon = header.querySelector('.accordion-icon');
+    
+    // Cerrar otros acordeones en el mismo contenedor
+    const allItems = header.closest('.space-y-4')?.querySelectorAll('.accordion-item') || [];
+    allItems.forEach(el => {
+      if (el !== item) {
+        el.querySelector('.accordion-content')?.classList.remove('open');
+        el.querySelector('.accordion-icon')?.classList.remove('open');
+      }
+    });
+    
+    // Toggle actual
+    content.classList.toggle('open');
+    icon.classList.toggle('open');
+  }
+
+  // Form submission handler
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    alert('¡Gracias! Te contactaremos pronto con tu horario disponible para la llamada gratuita.');
+    document.getElementById('cta-modal').style.display = 'none';
+    e.target.reset();
+  }
+
+  // Smooth scroll para links de navegación
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
